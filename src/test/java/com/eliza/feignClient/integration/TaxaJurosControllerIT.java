@@ -3,6 +3,7 @@ package com.eliza.feignClient.integration;
 import com.eliza.feignClient.model.TaxaJurosRequest;
 import com.eliza.feignClient.model.dto.TaxaJurosResponse;
 import com.eliza.feignClient.repositories.TaxaJurosRepository;
+import com.eliza.feignClient.wrapper.PaginatedResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import static com.eliza.feignClient.services.TaxaJurosServiceImplTest.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -97,6 +100,17 @@ class TaxaJurosControllerIT {
                 .exchange("/taxasMes/anoMes?anoMes=" + ANO_MES, HttpMethod.GET, null,
                         TaxaJurosResponse[].class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    void deverRetornarTaxaPorPaginaOk() {
+        ParameterizedTypeReference<PaginatedResponse<TaxaJurosResponse>> responseType =
+                new ParameterizedTypeReference<>() { };
+        ResponseEntity<PaginatedResponse<TaxaJurosResponse>> response = this.testRestTemplate
+                .exchange("/taxasMes/filtrar?pag=0&tam=1", HttpMethod.GET, null,
+                        responseType);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     private void gerarTaxas() {
