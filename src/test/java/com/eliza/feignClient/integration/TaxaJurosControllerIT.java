@@ -58,6 +58,7 @@ class TaxaJurosControllerIT {
         assertEquals(response.getBody().getTaxaJurosAoAno(), TAXA_JUROS_AO_ANO);
         assertEquals(response.getBody().getCnpj8(), CNPJ_8);
         assertEquals(response.getBody().getAnoMes(), ANO_MES);
+        assertNotNull(response);
     }
 
     @Test
@@ -65,6 +66,7 @@ class TaxaJurosControllerIT {
         ResponseEntity<TaxaJurosResponse[]> response = this.testRestTemplate
                 .exchange("/taxasMes/", HttpMethod.GET, null, TaxaJurosResponse[].class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     @Test
@@ -73,6 +75,7 @@ class TaxaJurosControllerIT {
         ResponseEntity<TaxaJurosResponse> response = this.testRestTemplate
                 .exchange("/taxasMes/" + taxas.getId(), HttpMethod.GET, null, TaxaJurosResponse.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     @Test
@@ -84,6 +87,7 @@ class TaxaJurosControllerIT {
         ResponseEntity<TaxaJurosResponse> response = this.testRestTemplate
                 .exchange("/taxasMes/" + taxas.getId(), HttpMethod.PUT, httpEntity, TaxaJurosResponse.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     @Test
@@ -92,6 +96,7 @@ class TaxaJurosControllerIT {
         ResponseEntity<Void> response = this.testRestTemplate
                 .exchange("/taxasMes/" + taxas.getId(), HttpMethod.DELETE, null, Void.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     @Test
@@ -100,6 +105,7 @@ class TaxaJurosControllerIT {
                 .exchange("/taxasMes/anoMes?anoMes=" + ANO_MES, HttpMethod.GET, null,
                         TaxaJurosResponse[].class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response);
     }
 
     @Test
