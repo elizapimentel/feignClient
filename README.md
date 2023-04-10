@@ -43,6 +43,8 @@
     | │ | | | ├─📁constants            
     │ │ | │ │ │ └─📄Messages             
     │ | │ │ │ └─📄CNPJValidator 
+    │ | | | | ├─📁wrapper    
+    | │ | | | | └─📄PaginatedResponse 
     | │ | └─📄FeignClientApplication  
     | | ├─📁 resources  
     | | | ├─📁 static          
